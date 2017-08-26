@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body onkeyup="moveSelection(event)" bgcolor="#f5f5dc">
+<!--<body>-->
+<script type="text/javascript" src="js/action.js"></script>
+<div class="container" id="gamediv">
+
+    <!--<canvas id="game_canvas" class="img-responsive" style="border:1px solid #000000;">-->
+        <img src="fire.jpeg" id="emoji" class="running">
+        <p>
+            <input type=button onClick="startGame()" value='Start'>
+        </p>
+        <p>
+            <input type="button" onclick="reset()" value="Reset">
+        </p>
+    <!--</canvas>-->
+</div>
+
+</body>
+</html>
