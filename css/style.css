@@ -1,6 +1,10 @@
-img{
-
+.emoji-img{
     position: absolute;
     left: 500px;
     top: 100px;
+}
+
+#gamediv{
+    background-color: black;
+    min-height: 630px;
 }

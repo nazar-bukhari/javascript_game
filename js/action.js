@@ -1,41 +1,44 @@
 /**
  * Created by nazar on 8/24/17.
  */
+let imageDiv =null;
+let element = returnImage();
 
-function startGame(){
-
-    window.element = document.getElementById("emoji");
-    returnImage();
+function startGame() {
+    imageDiv = document.getElementById('emoji');
+    console.log(imageDiv);
+    imageDiv.appendChild(element);
     timer();
-    moveSelection();
+}
+
+function returnImage() {
+
+    const imageArray = ['img1.png',"img2.png","img3.png"];
+    const img = document.createElement("img");
+    img.src = imageArray[Math.floor(Math.random()*imageArray.length)];
+    img.setAttribute("class","emoji-img");
+    return img;
 }
 
 function timer() {
 
-    var step = 2;
-    var x = element.offsetLeft;
-    var y = element.offsetTop;
-    // console.log(x,y);
+    const step = 2;
+    let y = element.offsetTop;
+    const myTime = setTimeout(timer,20);
 
     if(y<500){
-        y=y+step;
-        element.style.top = y+"px";
+        y += step;
+        element.style.top = `${y}px`;
+        console.log("top: ",element.style.top);
+        console.log("y= ",y);
     }else{
-        document.getElementById("gamediv").appendChild(element);
+
         console.log("touched bottom");
-        reset();
-        returnImage();
+        element = returnImage();
+        imageDiv.appendChild(element);
+        clearTimeout(myTime);
         timer();
     }
-
-    my_time = setTimeout(timer,20); //learn
-} 
-
-function reset() {
-
-    clearTimeout(my_time);
-    element.style.left='500px';
-    element.style.top='100px';
 }
 
 function moveSelection(event) {
@@ -61,38 +64,19 @@ function leftArrowPressed(){
 
     console.log("left pressed.....");
     var left = element.offsetLeft;
-    left = left - 15;
-    element.style.left = left+'px';
+    left -= 15;
+    element.style.left = `${left}px`;
 }
 
 function rightArrowPressed() {
 
     console.log("right pressed.....");
     var right = element.offsetLeft;
-    right = right + 15 ;
-    element.style.left = right+'px';
-
+    right += 15 ;
+    element.style.left = `${right}px`;
 }
 
-function upArrowPressed() {
-    console.log("upArrow pressed.....");
-}
 
 function downArrowPressed() {
     console.log("down pressed.....");
-}
-
-
-function returnImage(){
-
-    // var imgNames = ['img1','img2'];
-    // var imageName = imgNames[Math.floor(Math.random()*imgNames.length)]+".png";
-    // element.src = imageName;
-
-    img1 = new Image().src = "img1.png";
-    img2 = new Image().src = "img2.png";
-    img3 = new Image().src = "img3.png";
-
-    var imageArray = [img1,img2,img3];
-    element.src = imageArray[Math.floor(Math.random()*imageArray.length)];
 }
