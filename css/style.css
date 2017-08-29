@@ -5,6 +5,14 @@
 }
 
 #gamediv{
-    background-color: black;
+    background-color: darkgrey;
     min-height: 630px;
+}
+
+#mydiv{
+    background-color: #4cae4c;
+    /*left: 500px;*/
+    /*top: 100px;*/
+    height: 128px;
+    width: 128px;
 }

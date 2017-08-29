@@ -6,7 +6,6 @@ let element = returnImage();
 
 function startGame() {
     imageDiv = document.getElementById('emoji');
-    console.log(imageDiv);
     imageDiv.appendChild(element);
     timer();
 }
@@ -29,8 +28,8 @@ function timer() {
     if(y<500){
         y += step;
         element.style.top = `${y}px`;
-        console.log("top: ",element.style.top);
-        console.log("y= ",y);
+        // console.log("top: ",element.style.top);
+        // console.log("y= ",y);
     }else{
 
         console.log("touched bottom");
@@ -51,9 +50,9 @@ function moveSelection(event) {
         case 39:
             rightArrowPressed();
             break;
-        case 38:
-            upArrowPressed();
-            break;
+        // case 38:
+        //     upArrowPressed();
+        //     break;
         case 40:
             downArrowPressed();
             break;
@@ -63,20 +62,37 @@ function moveSelection(event) {
 function leftArrowPressed(){
 
     console.log("left pressed.....");
+    createGrid();
     var left = element.offsetLeft;
-    left -= 15;
+    left -= 128;
     element.style.left = `${left}px`;
+    //if div present in left, shift image to left div
 }
 
 function rightArrowPressed() {
 
     console.log("right pressed.....");
+    createGrid();
     var right = element.offsetLeft;
-    right += 15 ;
+    right += 128 ;
     element.style.left = `${right}px`;
 }
 
 
 function downArrowPressed() {
     console.log("down pressed.....");
+}
+
+function createGrid(){
+
+     var div = document.createElement('div');
+     div.setAttribute('id','mydiv');
+     div.className = 'mdiv';
+     div.style.position = "absolute";
+    div.style.left = '500px';
+    div.style.top = '100px';
+
+    imageDiv.appendChild(div);
+
+    console.log(div.style.left);
 }
