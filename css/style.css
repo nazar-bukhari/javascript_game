@@ -1,6 +1,21 @@
-img{
-
+.emoji-img{
     position: absolute;
-    left: 500px;
-    top: 100px;
+    left: 512px;
+    top: 0;
+}
+
+#gamediv{
+    background-color: darkgrey;
+    height: 630px;
+    width: 896px;
+    padding: 0;
+    /*max-height: 2000px;*/
+}
+
+#mydiv{
+    background-color: #4cae4c;
+    /*left: 500px;*/
+    /*top: 100px;*/
+    height: 128px;
+    width: 128px;
 }

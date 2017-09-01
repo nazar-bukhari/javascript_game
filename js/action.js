@@ -1,46 +1,51 @@
 /**
  * Created by nazar on 8/24/17.
  */
+let imageDiv = null;
+let element = returnImage();
+let myDivLeft = 0;
+let myDivTop = 100;
+let left
 
-function startGame(){
-
-    window.element = document.getElementById("emoji");
-    returnImage();
+function startGame() {
+    imageDiv = document.getElementById('emoji');
+    imageDiv.appendChild(element);
     timer();
-    moveSelection();
+}
+
+function returnImage() {
+
+    const imageArray = ['img1.png', "img2.png", "img3.png"];
+    const img = document.createElement("img");
+    img.src = imageArray[Math.floor(Math.random() * imageArray.length)];
+    img.setAttribute("class", "emoji-img");
+    return img;
 }
 
 function timer() {
 
-    var step = 2;
-    var x = element.offsetLeft;
-    var y = element.offsetTop;
-    // console.log(x,y);
+    const step = 2;
+    let y = element.offsetTop;
+    const myTime = setTimeout(timer, 20);
 
-    if(y<500){
-        y=y+step;
-        element.style.top = y+"px";
-    }else{
-        document.getElementById("gamediv").appendChild(element);
+    if (y < 500) {
+        y += step;
+        element.style.top = `${y}px`;
+        // console.log("top: ",element.style.top);
+        // console.log("y= ",y);
+    } else {
+
         console.log("touched bottom");
-        reset();
-        returnImage();
+        element = returnImage();
+        imageDiv.appendChild(element);
+        clearTimeout(myTime);
         timer();
     }
-
-    my_time = setTimeout(timer,20); //learn
-} 
-
-function reset() {
-
-    clearTimeout(my_time);
-    element.style.left='500px';
-    element.style.top='100px';
 }
 
 function moveSelection(event) {
 
-    switch (event.keyCode){
+    switch (event.keyCode) {
 
         case 37:
             leftArrowPressed();
@@ -48,51 +53,58 @@ function moveSelection(event) {
         case 39:
             rightArrowPressed();
             break;
-        case 38:
-            upArrowPressed();
-            break;
+        // case 38:
+        //     upArrowPressed();
+        //     break;
         case 40:
             downArrowPressed();
             break;
     }
 }
 
-function leftArrowPressed(){
+function leftArrowPressed() {
 
-    console.log("left pressed.....");
-    var left = element.offsetLeft;
-    left = left - 15;
-    element.style.left = left+'px';
+    left = element.offsetLeft;
+    // console.log('left',left)
+
+    if (left > 0) {
+        left -= 128;
+        element.style.left = `${left}px`;
+    }
+    //if div present in left, shift image to left div
+    createGrid();
 }
 
 function rightArrowPressed() {
 
-    console.log("right pressed.....");
-    var right = element.offsetLeft;
-    right = right + 15 ;
-    element.style.left = right+'px';
-
+    right = element.offsetLeft;
+    console.log('right',right)
+    if(right < 896) {
+        right += 128;
+        element.style.left = `${right}px`;
+    }
+    createGrid();
 }
 
-function upArrowPressed() {
-    console.log("upArrow pressed.....");
-}
 
 function downArrowPressed() {
     console.log("down pressed.....");
 }
 
+function createGrid() {
 
-function returnImage(){
+    let div = document.createElement('div');
+    div.setAttribute('id', 'mydiv');
+    div.className = 'mdiv';
+    div.style.position = "absolute";
+    // myDivLeft += 128;
+    // myDivTop += 128;
+    // div.style.left = `${myDivLeft}px`;
+    // div.style.top = `${myDivTop}px`;
+    div.style.left = element.style.left;
+    div.style.top = element.style.top;
 
-    // var imgNames = ['img1','img2'];
-    // var imageName = imgNames[Math.floor(Math.random()*imgNames.length)]+".png";
-    // element.src = imageName;
+    imageDiv.appendChild(div);
 
-    img1 = new Image().src = "img1.png";
-    img2 = new Image().src = "img2.png";
-    img3 = new Image().src = "img3.png";
-
-    var imageArray = [img1,img2,img3];
-    element.src = imageArray[Math.floor(Math.random()*imageArray.length)];
+    // console.log(element.style.left);
 }
