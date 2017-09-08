@@ -36,14 +36,14 @@ function timer() {
 
     const step = 128;
     const myTime = setTimeout(timer, 500);
-
+    
     if (y < 500) {
 
         yAxisDepth++;
         isLocked = lock[xAxisDepth][yAxisDepth];
         console.log('isLocked Y: ', isLocked);
 
-        if (isLocked == 0) {
+        if (isLocked == '') { //open condition
 
             ctx.clearRect(x, y, width, height);
             y += step;
@@ -52,23 +52,21 @@ function timer() {
         } else if (yAxisDepth == 0) {
             clearTimeout(myTime); //Game Over
         } else {
-            lockCurrentGrid = true;
+            lockCurrentGrid = true; //no space below.
         }
 
     } else if (y >= 500) {
 
-        isTouchedBottom = true;
+        isTouchedBottom = true; //touched ultimate bottom.
     }
 
     if (isTouchedBottom || lockCurrentGrid) {
 
-        ctx.fillStyle = 'red';
-        ctx.fillRect(x, y, width, height);
+        // ctx.fillStyle = 'red';
+        // ctx.fillRect(x, y, width, height);
 
         yAxisDepth = lockCurrentGrid ? (yAxisDepth - 1) : yAxisDepth;
-        // console.log('isLocked: ' + isLocked);
-        console.log('xAxisDepth: ', xAxisDepth, ' yAxisDepth: ', yAxisDepth);
-        lock [xAxisDepth][yAxisDepth] = 1;
+        lock [xAxisDepth][yAxisDepth] = element.src;
 
         isTouchedBottom = false;
         lockCurrentGrid = false;
@@ -112,11 +110,10 @@ function leftArrowPressed() {
 
         xAxisDepth--;
         isLocked = lock[xAxisDepth][yAxisDepth];
-        console.log('xAxisDepth L: ', xAxisDepth, ' yAxisDepth L: ', yAxisDepth);
-        console.log('isLocked L: ', isLocked)
+        // console.log('xAxisDepth L: ', xAxisDepth, ' yAxisDepth L: ', yAxisDepth);
+        // console.log('isLocked L: ', isLocked);
 
-
-        if (isLocked == 0) {
+        if (isLocked == '') {
             ctx.clearRect(x, y, width, height);
             x -= 128;
             ctx.drawImage(element, x, y, width, height);
@@ -132,9 +129,9 @@ function rightArrowPressed() {
 
         xAxisDepth++;
         isLocked = lock[xAxisDepth][yAxisDepth];
-        console.log('xAxisDepth R: ', xAxisDepth, ' yAxisDepth R: ', yAxisDepth);
+        // console.log('xAxisDepth R: ', xAxisDepth, ' yAxisDepth R: ', yAxisDepth);
 
-        if (isLocked == 0) {
+        if (isLocked == '') {
             ctx.clearRect(x, y, width, height);
             x += 128;
             ctx.drawImage(element, x, y, width, height);
@@ -177,7 +174,7 @@ function createArray() {
     for (xAxis = 0; xAxis < 7; xAxis++) {
         lock[xAxis] = [];
         for (yAxis = 0; yAxis < 5; yAxis++) {
-            lock[xAxis][yAxis] = 0;
+            lock[xAxis][yAxis] = '' ;
         }
     }
 }
