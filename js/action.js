@@ -4,11 +4,13 @@
 let canvas = null;
 let element = returnImage();
 let isTouchedBottom = false;
+let lockCurrentGrid = false;
 let ctx;
 let width = 128;
 let height = 128;
 let yAxisDepth = -1;
 let xAxisDepth = 3;
+let isLocked;
 
 function startGame() {
 
@@ -16,7 +18,7 @@ function startGame() {
     y = -128;
     canvas = document.getElementById('gameCanvas');
     ctx = canvas.getContext('2d');
-    ctx.drawImage(element,x,y,128,128);
+    ctx.drawImage(element, x, y, 128, 128);
     createGrid();
     createArray();
     timer();
@@ -27,7 +29,6 @@ function returnImage() {
     const imageArray = ['img1.png', "img2.png", "img3.png"];
     const img = document.createElement("img");
     img.src = imageArray[Math.floor(Math.random() * imageArray.length)];
-    // img.setAttribute("class", "emoji-img");
     return img;
 }
 
@@ -39,28 +40,47 @@ function timer() {
     if (y < 500) {
 
         yAxisDepth++;
-        console.log(xAxisDepth," ",yAxisDepth);
-        ctx.clearRect(x,y,width,height);
-        y += step;
-        ctx.drawImage(element,x,y,width,height);
+        isLocked = lock[xAxisDepth][yAxisDepth];
+        console.log('isLocked Y: ', isLocked);
 
-    } else {
+        if (isLocked == 0) {
+
+            ctx.clearRect(x, y, width, height);
+            y += step;
+            ctx.drawImage(element, x, y, width, height);
+
+        } else if (yAxisDepth == 0) {
+            clearTimeout(myTime); //Game Over
+        } else {
+            lockCurrentGrid = true;
+        }
+
+    } else if (y >= 500) {
 
         isTouchedBottom = true;
-        lock [xAxisDepth][yAxisDepth]=1;
+    }
+
+    if (isTouchedBottom || lockCurrentGrid) {
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(x, y, width, height);
+
+        yAxisDepth = lockCurrentGrid ? (yAxisDepth - 1) : yAxisDepth;
+        // console.log('isLocked: ' + isLocked);
+        console.log('xAxisDepth: ', xAxisDepth, ' yAxisDepth: ', yAxisDepth);
+        lock [xAxisDepth][yAxisDepth] = 1;
+
+        isTouchedBottom = false;
+        lockCurrentGrid = false;
 
         element = returnImage();
         clearTimeout(myTime);
         resetAllValue();
         timer();
     }
-
-    if(isTouchedBottom){
-        isTouchedBottom = false;
-    }
 }
 
-function resetAllValue(){
+function resetAllValue() {
 
     y = -128;
     x = 384;
@@ -89,20 +109,38 @@ function leftArrowPressed() {
 
     // console.log('x=',x);
     if (x > 0) {
+
         xAxisDepth--;
-        ctx.clearRect(x,y,width,height);
-        x -= 128;
-        ctx.drawImage(element,x,y,width,height);
+        isLocked = lock[xAxisDepth][yAxisDepth];
+        console.log('xAxisDepth L: ', xAxisDepth, ' yAxisDepth L: ', yAxisDepth);
+        console.log('isLocked L: ', isLocked)
+
+
+        if (isLocked == 0) {
+            ctx.clearRect(x, y, width, height);
+            x -= 128;
+            ctx.drawImage(element, x, y, width, height);
+        } else {
+            xAxisDepth++;
+        }
     }
 }
 
 function rightArrowPressed() {
 
-    if(x < 768) {
+    if (x < 768) {
+
         xAxisDepth++;
-        ctx.clearRect(x,y,width,height);
-        x += 128;
-        ctx.drawImage(element,x,y,width,height);
+        isLocked = lock[xAxisDepth][yAxisDepth];
+        console.log('xAxisDepth R: ', xAxisDepth, ' yAxisDepth R: ', yAxisDepth);
+
+        if (isLocked == 0) {
+            ctx.clearRect(x, y, width, height);
+            x += 128;
+            ctx.drawImage(element, x, y, width, height);
+        } else {
+            xAxisDepth--;
+        }
     }
 }
 
@@ -113,16 +151,16 @@ function downArrowPressed() {
 
 function createGrid() {
 
-    for(var x = 128 ; x< canvas.width ; x+=128){
+    for (var x = 128; x < canvas.width; x += 128) {
 
-        ctx.moveTo(x,0);
-        ctx.lineTo(x,canvas.height);
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
     }
 
-    for(var y = 128; y < canvas.height ; y+=128){
+    for (var y = 128; y < canvas.height; y += 128) {
 
-        ctx.moveTo(0,y);
-        ctx.lineTo(canvas.width,y);
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
     }
 
     ctx.strokeStyle = "red";
@@ -130,15 +168,15 @@ function createGrid() {
 }
 
 
-function createArray(){
+function createArray() {
 
     xAxis = 0;
     yAxis = 0;
-    lock =[];
+    lock = [];
 
-    for (xAxis = 0; xAxis< 7; xAxis++){
+    for (xAxis = 0; xAxis < 7; xAxis++) {
         lock[xAxis] = [];
-        for(yAxis = 0; yAxis<5;  yAxis++){
+        for (yAxis = 0; yAxis < 5; yAxis++) {
             lock[xAxis][yAxis] = 0;
         }
     }
