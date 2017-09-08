@@ -36,7 +36,7 @@ function timer() {
 
     const step = 128;
     const myTime = setTimeout(timer, 500);
-    
+
     if (y < 500) {
 
         yAxisDepth++;
@@ -67,6 +67,33 @@ function timer() {
 
         yAxisDepth = lockCurrentGrid ? (yAxisDepth - 1) : yAxisDepth;
         lock [xAxisDepth][yAxisDepth] = element.src;
+
+        let a2,a3,a4,a5;
+        let a1 = lock [xAxisDepth][yAxisDepth];
+
+        if(xAxisDepth < 7) {
+
+            console.log('xAxisDepth 2: ', xAxisDepth + 1, ' yAxisDepth 2: ', yAxisDepth);
+            console.log('xAxisDepth 3: ', xAxisDepth + 2, ' yAxisDepth 2: ', yAxisDepth);
+            a2 = lock [xAxisDepth + 1][yAxisDepth];
+            a3 = lock [xAxisDepth + 2][yAxisDepth];
+        }
+
+        //check
+        a4 = lock [xAxisDepth-1][yAxisDepth];
+        a5 = lock [xAxisDepth-2][yAxisDepth];
+
+        if(a1 == a2){
+            if(a1 == a3){
+                console.log("match found");
+            }
+        }
+        else if(a1 == a4){
+            if(a1 == a5){
+                console.log("match found")
+            }
+        }
+
 
         isTouchedBottom = false;
         lockCurrentGrid = false;
