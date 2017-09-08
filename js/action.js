@@ -1,17 +1,24 @@
 /**
  * Created by nazar on 8/24/17.
  */
-let imageDiv = null;
+let canvas = null;
 let element = returnImage();
-let myDivLeft = 0;
-let myDivTop = 100;
-let gridTopArray = [];
-let gridLeftArray = [];
 let isTouchedBottom = false;
+let ctx;
+let width = 128;
+let height = 128;
+let yAxisDepth = -1;
+let xAxisDepth = 3;
 
 function startGame() {
-    imageDiv = document.getElementById('emoji');
-    imageDiv.appendChild(element);
+
+    x = 384;
+    y = -128;
+    canvas = document.getElementById('gameCanvas');
+    ctx = canvas.getContext('2d');
+    ctx.drawImage(element,x,y,128,128);
+    createGrid();
+    createArray();
     timer();
 }
 
@@ -20,43 +27,46 @@ function returnImage() {
     const imageArray = ['img1.png', "img2.png", "img3.png"];
     const img = document.createElement("img");
     img.src = imageArray[Math.floor(Math.random() * imageArray.length)];
-    img.setAttribute("class", "emoji-img");
+    // img.setAttribute("class", "emoji-img");
     return img;
 }
 
 function timer() {
 
-    let elementMap = {};
-    const step = 2;
-    let y = element.offsetTop;
-    const myTime = setTimeout(timer, 20);
-    let topHeightOfLastElement = gridTopArray.length;
+    const step = 128;
+    const myTime = setTimeout(timer, 500);
 
     if (y < 500) {
 
+        yAxisDepth++;
+        console.log(xAxisDepth," ",yAxisDepth);
+        ctx.clearRect(x,y,width,height);
         y += step;
-        // if(y+128 < gridLeftArray.ge) {
-            element.style.top = `${y}px`;
-        // }
-        // console.log("top: ",element.style.top);
+        ctx.drawImage(element,x,y,width,height);
+
     } else {
 
         isTouchedBottom = true;
-        console.log("touched bottom");
+        lock [xAxisDepth][yAxisDepth]=1;
+
         element = returnImage();
-        imageDiv.appendChild(element);
         clearTimeout(myTime);
+        resetAllValue();
         timer();
     }
 
     if(isTouchedBottom){
         isTouchedBottom = false;
-        gridLeftArray.push(element.style.left);
-        gridTopArray.push(element.style.top);
-        elementMap [element.style.top] = element.style.left;
-        console.log("y= ",elementMap[element.style.top]);
-
     }
+}
+
+function resetAllValue(){
+
+    y = -128;
+    x = 384;
+    yAxisDepth = -1;
+    xAxisDepth = 3;
+
 }
 
 function moveSelection(event) {
@@ -69,9 +79,6 @@ function moveSelection(event) {
         case 39:
             rightArrowPressed();
             break;
-        // case 38:
-        //     upArrowPressed();
-        //     break;
         case 40:
             downArrowPressed();
             break;
@@ -80,49 +87,59 @@ function moveSelection(event) {
 
 function leftArrowPressed() {
 
-    left = element.offsetLeft;
-
-    if (left > 0) {
-        left -= 128;
-        element.style.left = `${left}px`;
+    // console.log('x=',x);
+    if (x > 0) {
+        xAxisDepth--;
+        ctx.clearRect(x,y,width,height);
+        x -= 128;
+        ctx.drawImage(element,x,y,width,height);
     }
-    //if div present in left, shift image to left div
-    createGrid();
 }
 
 function rightArrowPressed() {
 
-    right = element.offsetLeft;
-    if(right < 768) {
-        right += 128;
-        element.style.left = `${right}px`;
+    if(x < 768) {
+        xAxisDepth++;
+        ctx.clearRect(x,y,width,height);
+        x += 128;
+        ctx.drawImage(element,x,y,width,height);
     }
-    console.log('right',right)
-
-    createGrid();
 }
 
 
 function downArrowPressed() {
-    console.log("down pressed.....");
+    console.log("down pressed.....")
 }
 
 function createGrid() {
 
-    // if(gridLeftArray.indexOf(element.style.top)) {
-        let div = document.createElement('div');
-        div.setAttribute('id', 'mydiv');
-        div.className = 'mdiv';
-        div.style.position = "absolute";
-        // myDivLeft += 128;
-        // myDivTop += 128;
-        // div.style.left = `${myDivLeft}px`;
-        // div.style.top = `${myDivTop}px`;
-        div.style.left = element.style.left;
-        div.style.top = element.style.top;
+    for(var x = 128 ; x< canvas.width ; x+=128){
 
-        imageDiv.appendChild(div);
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,canvas.height);
+    }
 
-    // }
+    for(var y = 128; y < canvas.height ; y+=128){
 
+        ctx.moveTo(0,y);
+        ctx.lineTo(canvas.width,y);
+    }
+
+    ctx.strokeStyle = "red";
+    ctx.stroke();
+}
+
+
+function createArray(){
+
+    xAxis = 0;
+    yAxis = 0;
+    lock =[];
+
+    for (xAxis = 0; xAxis< 7; xAxis++){
+        lock[xAxis] = [];
+        for(yAxis = 0; yAxis<5;  yAxis++){
+            lock[xAxis][yAxis] = 0;
+        }
+    }
 }
