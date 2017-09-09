@@ -6,8 +6,8 @@ let element = returnImage();
 let isTouchedBottom = false;
 let lockCurrentGrid = false;
 let ctx;
-let width = 128;
-let height = 128;
+const width = 128;
+const height = 128;
 let yAxisDepth = -1;
 let xAxisDepth = 3;
 let isLocked;
@@ -41,7 +41,7 @@ function timer() {
 
         yAxisDepth++;
         isLocked = lock[xAxisDepth][yAxisDepth];
-        console.log('isLocked Y: ', isLocked);
+        // console.log('isLocked Y: ', isLocked);
 
         if (isLocked == '') { //open condition
 
@@ -71,29 +71,31 @@ function timer() {
         let a2,a3,a4,a5;
         let a1 = lock [xAxisDepth][yAxisDepth];
 
-        if(xAxisDepth < 7) {
+        if(xAxisDepth < 5) { //5 = width-2
 
-            console.log('xAxisDepth 2: ', xAxisDepth + 1, ' yAxisDepth 2: ', yAxisDepth);
-            console.log('xAxisDepth 3: ', xAxisDepth + 2, ' yAxisDepth 2: ', yAxisDepth);
+            // console.log('xAxisDepth 2: ', xAxisDepth + 1, ' yAxisDepth 2: ', yAxisDepth);
+            // console.log('xAxisDepth 3: ', xAxisDepth + 2, ' yAxisDepth 2: ', yAxisDepth);
             a2 = lock [xAxisDepth + 1][yAxisDepth];
             a3 = lock [xAxisDepth + 2][yAxisDepth];
+        }
+        else if(xAxisDepth < 6){ //6 = width-1
+            a2 = lock [xAxisDepth + 1][yAxisDepth];
         }
 
         //check
         a4 = lock [xAxisDepth-1][yAxisDepth];
         a5 = lock [xAxisDepth-2][yAxisDepth];
 
-        if(a1 == a2){
-            if(a1 == a3){
+        if(a2 !== '' && a1 === a2){
+            if(a1 === a3){
                 console.log("match found");
             }
         }
-        else if(a1 == a4){
-            if(a1 == a5){
+        else if(a4 !== '' && a1 === a4){
+            if(a5 !== '' && a1 === a5){
                 console.log("match found")
             }
         }
-
 
         isTouchedBottom = false;
         lockCurrentGrid = false;
@@ -140,7 +142,7 @@ function leftArrowPressed() {
         // console.log('xAxisDepth L: ', xAxisDepth, ' yAxisDepth L: ', yAxisDepth);
         // console.log('isLocked L: ', isLocked);
 
-        if (isLocked == '') {
+        if (isLocked === '') {
             ctx.clearRect(x, y, width, height);
             x -= 128;
             ctx.drawImage(element, x, y, width, height);
@@ -158,7 +160,7 @@ function rightArrowPressed() {
         isLocked = lock[xAxisDepth][yAxisDepth];
         // console.log('xAxisDepth R: ', xAxisDepth, ' yAxisDepth R: ', yAxisDepth);
 
-        if (isLocked == '') {
+        if (isLocked === '') {
             ctx.clearRect(x, y, width, height);
             x += 128;
             ctx.drawImage(element, x, y, width, height);
@@ -175,13 +177,13 @@ function downArrowPressed() {
 
 function createGrid() {
 
-    for (var x = 128; x < canvas.width; x += 128) {
+    for (let x = 128; x < canvas.width; x += 128) {
 
         ctx.moveTo(x, 0);
         ctx.lineTo(x, canvas.height);
     }
 
-    for (var y = 128; y < canvas.height; y += 128) {
+    for (let y = 128; y < canvas.height; y += 128) {
 
         ctx.moveTo(0, y);
         ctx.lineTo(canvas.width, y);
