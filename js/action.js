@@ -68,6 +68,8 @@ function timer() {
         yAxisDepth = lockCurrentGrid ? (yAxisDepth - 1) : yAxisDepth;
         lock [xAxisDepth][yAxisDepth] = element.src;
 
+        //Matching Logic
+
         let a2,a3,a4,a5;
         let a1 = lock [xAxisDepth][yAxisDepth];
 
@@ -82,18 +84,40 @@ function timer() {
             a2 = lock [xAxisDepth + 1][yAxisDepth];
         }
 
-        //check
-        a4 = lock [xAxisDepth-1][yAxisDepth];
-        a5 = lock [xAxisDepth-2][yAxisDepth];
+        if(xAxisDepth > 1){
+            a4 = lock [xAxisDepth-1][yAxisDepth];
+            a5 = lock [xAxisDepth-2][yAxisDepth];
+        }
+        else if(xAxisDepth === 1){
+            a4 = lock [xAxisDepth-1][yAxisDepth];
+        }
+
 
         if(a2 !== '' && a1 === a2){
             if(a1 === a3){
-                console.log("match found");
+                console.log("match found1 ",xAxisDepth," ",yAxisDepth," ",width," ",height);
+                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth+1,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth+2,yAxisDepth,width,height);
+            }else if(a1 === a5){
+                console.log("match found1.1",xAxisDepth," ",yAxisDepth," ",width," ",height);
+                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth+1,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth+2,yAxisDepth,width,height);
             }
         }
         else if(a4 !== '' && a1 === a4){
             if(a5 !== '' && a1 === a5){
-                console.log("match found")
+                console.log("match found2",xAxisDepth," ",yAxisDepth," ",width," ",height);
+                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth-1,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth-2,yAxisDepth,width,height);
+            }
+            else if(a1 === a2){
+                console.log("match found2.1",xAxisDepth," ",yAxisDepth," ",width," ",height);
+                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth-1,yAxisDepth,width,height);
+                ctx.clearRect(xAxisDepth-2,yAxisDepth,width,height);
             }
         }
 
