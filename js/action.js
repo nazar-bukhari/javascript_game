@@ -10,6 +10,8 @@ const width = 128;
 const height = 128;
 let yAxisDepth = -1;
 let xAxisDepth = 3;
+let maxXAxisDepth = 7;
+let maxYAxisDepth = 5;
 let isLocked;
 
 function startGame() {
@@ -71,7 +73,7 @@ function timer() {
         lock [xAxisDepth][yAxisDepth] = element.src;
 
         //Matching Logic
-        matchPuzzle(ctx,lock);
+        matchPuzzle();
 
         isTouchedBottom = false;
         lockCurrentGrid = false;
@@ -180,9 +182,9 @@ function createArray() {
     yAxis = 0;
     lock = [];
 
-    for (xAxis = 0; xAxis < 7; xAxis++) {
+    for (xAxis = 0; xAxis < maxXAxisDepth; xAxis++) {
         lock[xAxis] = [];
-        for (yAxis = 0; yAxis < 5; yAxis++) {
+        for (yAxis = 0; yAxis < maxYAxisDepth; yAxis++) {
             lock[xAxis][yAxis] = '' ;
         }
     }
