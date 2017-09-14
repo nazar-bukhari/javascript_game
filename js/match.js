@@ -36,6 +36,10 @@ function matchPuzzle(ctx){
             ctx.clearRect((xAxisDepth+1)*128,(yAxisDepth*128),width,height);
             ctx.clearRect((xAxisDepth+2)*128,(yAxisDepth*128),width,height);
 
+            lock[xAxisDepth][yAxisDepth]='';
+            lock[xAxisDepth+1][yAxisDepth]='';
+            lock[xAxisDepth+2][yAxisDepth]='';
+
 
         }else if(a1 === a4){ //should be a1 == a4
 
@@ -46,6 +50,10 @@ function matchPuzzle(ctx){
             ctx.clearRect(xAxisDepth*128,yAxisDepth*128,width,height);
             ctx.clearRect((xAxisDepth+1)*128,yAxisDepth*128,width,height);
             ctx.clearRect((xAxisDepth+2)*128,yAxisDepth*128,width,height);
+
+            lock[xAxisDepth][yAxisDepth]='';
+            lock[xAxisDepth+1][yAxisDepth]='';
+            lock[xAxisDepth+2][yAxisDepth]='';
 
         }
     }
@@ -59,6 +67,10 @@ function matchPuzzle(ctx){
             ctx.clearRect((xAxisDepth-1)*128,yAxisDepth*128,width,height);
             ctx.clearRect((xAxisDepth-2)*128,yAxisDepth*128,width,height);
 
+            lock[xAxisDepth][yAxisDepth]='';
+            lock[xAxisDepth-1][yAxisDepth]='';
+            lock[xAxisDepth-2][yAxisDepth]='';
+
         }
         else if(a1 === a2){
 
@@ -68,6 +80,10 @@ function matchPuzzle(ctx){
             ctx.clearRect(xAxisDepth*128,yAxisDepth*128,width,height);
             ctx.clearRect((xAxisDepth-1)*128,yAxisDepth*128,width,height);
             ctx.clearRect((xAxisDepth-2)*128,yAxisDepth*128,width,height);
+
+            lock[xAxisDepth][yAxisDepth]='';
+            lock[xAxisDepth-1][yAxisDepth]='';
+            lock[xAxisDepth-2][yAxisDepth]='';
 
         }
     }
