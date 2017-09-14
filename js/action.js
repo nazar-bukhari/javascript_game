@@ -18,7 +18,9 @@ function startGame() {
     y = -128;
     canvas = document.getElementById('gameCanvas');
     ctx = canvas.getContext('2d');
+    ctx.beginPath();
     ctx.drawImage(element, x, y, 128, 128);
+    ctx.closePath();
     createGrid();
     createArray();
     timer();
@@ -69,57 +71,7 @@ function timer() {
         lock [xAxisDepth][yAxisDepth] = element.src;
 
         //Matching Logic
-
-        let a2,a3,a4,a5;
-        let a1 = lock [xAxisDepth][yAxisDepth];
-
-        if(xAxisDepth < 5) { //5 = width-2
-
-            // console.log('xAxisDepth 2: ', xAxisDepth + 1, ' yAxisDepth 2: ', yAxisDepth);
-            // console.log('xAxisDepth 3: ', xAxisDepth + 2, ' yAxisDepth 2: ', yAxisDepth);
-            a2 = lock [xAxisDepth + 1][yAxisDepth];
-            a3 = lock [xAxisDepth + 2][yAxisDepth];
-        }
-        else if(xAxisDepth < 6){ //6 = width-1
-            a2 = lock [xAxisDepth + 1][yAxisDepth];
-        }
-
-        if(xAxisDepth > 1){
-            a4 = lock [xAxisDepth-1][yAxisDepth];
-            a5 = lock [xAxisDepth-2][yAxisDepth];
-        }
-        else if(xAxisDepth === 1){
-            a4 = lock [xAxisDepth-1][yAxisDepth];
-        }
-
-
-        if(a2 !== '' && a1 === a2){
-            if(a1 === a3){
-                console.log("match found1 ",xAxisDepth," ",yAxisDepth," ",width," ",height);
-                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth+1,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth+2,yAxisDepth,width,height);
-            }else if(a1 === a5){
-                console.log("match found1.1",xAxisDepth," ",yAxisDepth," ",width," ",height);
-                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth+1,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth+2,yAxisDepth,width,height);
-            }
-        }
-        else if(a4 !== '' && a1 === a4){
-            if(a5 !== '' && a1 === a5){
-                console.log("match found2",xAxisDepth," ",yAxisDepth," ",width," ",height);
-                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth-1,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth-2,yAxisDepth,width,height);
-            }
-            else if(a1 === a2){
-                console.log("match found2.1",xAxisDepth," ",yAxisDepth," ",width," ",height);
-                ctx.clearRect(xAxisDepth,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth-1,yAxisDepth,width,height);
-                ctx.clearRect(xAxisDepth-2,yAxisDepth,width,height);
-            }
-        }
+        matchPuzzle(ctx);
 
         isTouchedBottom = false;
         lockCurrentGrid = false;
@@ -158,18 +110,19 @@ function moveSelection(event) {
 
 function leftArrowPressed() {
 
-    // console.log('x=',x);
     if (x > 0) {
 
         xAxisDepth--;
         isLocked = lock[xAxisDepth][yAxisDepth];
-        // console.log('xAxisDepth L: ', xAxisDepth, ' yAxisDepth L: ', yAxisDepth);
-        // console.log('isLocked L: ', isLocked);
 
         if (isLocked === '') {
+
             ctx.clearRect(x, y, width, height);
             x -= 128;
+            ctx.beginPath();
             ctx.drawImage(element, x, y, width, height);
+            ctx.closePath();
+
         } else {
             xAxisDepth++;
         }
@@ -182,12 +135,15 @@ function rightArrowPressed() {
 
         xAxisDepth++;
         isLocked = lock[xAxisDepth][yAxisDepth];
-        // console.log('xAxisDepth R: ', xAxisDepth, ' yAxisDepth R: ', yAxisDepth);
 
         if (isLocked === '') {
+
             ctx.clearRect(x, y, width, height);
             x += 128;
+            ctx.beginPath();
             ctx.drawImage(element, x, y, width, height);
+            ctx.closePath();
+
         } else {
             xAxisDepth--;
         }
