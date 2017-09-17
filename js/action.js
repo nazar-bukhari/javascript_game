@@ -6,6 +6,7 @@ let element = returnImage();
 let isTouchedBottom = false;
 let lockCurrentGrid = false;
 let ctx;
+let x,y;
 const width = 128;
 const height = 128;
 let yAxisDepth = -1;
@@ -43,17 +44,17 @@ function timer() {
 
     if (y < 500) {
 
-        yAxisDepth++;
+        yAxisDepth++; //*
         isLocked = lock[xAxisDepth][yAxisDepth];
         // console.log('isLocked Y: ', isLocked);
 
-        if (isLocked == '') { //open condition
+        if (isLocked === '') { //open condition
 
             ctx.clearRect(x, y, width, height);
             y += step;
             ctx.drawImage(element, x, y, width, height);
 
-        } else if (yAxisDepth == 0) {
+        } else if (yAxisDepth === 0) {
             clearTimeout(myTime); //Game Over
         } else {
             lockCurrentGrid = true; //no space below.
@@ -66,9 +67,12 @@ function timer() {
 
     if (isTouchedBottom || lockCurrentGrid) {
 
-        // ctx.fillStyle = 'red';
-        // ctx.fillRect(x, y, width, height);
-
+        /**
+         * yAxisDepth value is incremented before checking its null value to check the lock value(*).
+         * BCoz lock will be alwz 1step below the current y position
+         * That incremented value is decreased here when 'lockCurrentGrid'
+         * @type {number}
+         */
         yAxisDepth = lockCurrentGrid ? (yAxisDepth - 1) : yAxisDepth;
         lock [xAxisDepth][yAxisDepth] = element.src;
 
