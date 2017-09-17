@@ -182,8 +182,8 @@ function createGrid() {
 
 function createArray() {
 
-    xAxis = 0;
-    yAxis = 0;
+    let xAxis = 0;
+    let yAxis = 0;
     lock = [];
 
     for (xAxis = 0; xAxis < maxXAxisDepth; xAxis++) {

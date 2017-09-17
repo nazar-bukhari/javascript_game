@@ -3,6 +3,7 @@
  */
 
 let pixelValue = 128;
+let score = 0;
 
 function matchPuzzle() {
 
@@ -38,6 +39,9 @@ function matchPuzzle() {
         if(h1 === h2 && h2 === h3){
 
             console.log("Vertical Match found");
+            score++;
+            document.getElementById('gameScore').innerHTML = score.toString() ;
+
             for(let yAxisShifter = yAxisDepth; yAxisShifter < maxYAxisDepth; yAxisShifter++){
                 ctx.clearRect(xAxisDepth*pixelValue,yAxisShifter*pixelValue,width,height);
                 lock[xAxisDepth][yAxisShifter] = '';
@@ -53,13 +57,17 @@ function matchPuzzle() {
         if (a1 === a3) { //last emoji leftmost
 
             // console.log(x, " ", y);
-            console.log("match found1 ", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            // console.log("match found1 ", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            score++;
+            console.log('score: ',score);
+            document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {
 
                 for (let xAxisShifter = 0; xAxisShifter < 3; xAxisShifter++) {
 
                     emojiShifting(xAxisShifter,yAxisShifter);
+
                 }
             }
 
@@ -67,7 +75,10 @@ function matchPuzzle() {
         } else if (a1 === a4) {
 
             // console.log(x, " ", y);
-            console.log("match found1.1", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            // console.log("match found1.1", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            score++;
+            console.log('score: ',score);
+            document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {
 
@@ -82,7 +93,10 @@ function matchPuzzle() {
     else if (a4 !== '' && a1 === a4) {
         if (a5 !== '' && a1 === a5) { //last emoji at rightmost
 
-            console.log("match found2", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            // console.log("match found2", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            score++;
+            console.log('score: ',score);
+            document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {
 
@@ -95,7 +109,10 @@ function matchPuzzle() {
         }
         else if (a1 === a2) { //last emoji in middle (No Use)
 
-            console.log("match found2.1", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            // console.log("match found2.1", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
+            score++;
+            console.log('score: ',score);
+            document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {
 
