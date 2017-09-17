@@ -6,7 +6,7 @@ let pixelValue = 128;
 
 function matchPuzzle() {
 
-    let a2, a3, a4, a5;
+    let a2, a3, a4, a5,h1,h2,h3;
     let a1 = lock [xAxisDepth][yAxisDepth];
 
     if (xAxisDepth < maxXAxisDepth - 2) { //5 = width-2
@@ -26,7 +26,29 @@ function matchPuzzle() {
         a4 = lock [xAxisDepth - 1][yAxisDepth];
     }
 
+    if(yAxisDepth < maxYAxisDepth - 2){
 
+        h1 = lock[xAxisDepth][yAxisDepth];
+        h2 = lock[xAxisDepth][yAxisDepth+1];
+        h3 = lock[xAxisDepth][yAxisDepth+2];
+
+        /**
+         * Vertical Matching
+         */
+        if(h1 === h2 && h2 === h3){
+
+            console.log("Vertical Match found");
+            for(let yAxisShifter = yAxisDepth; yAxisShifter < maxYAxisDepth; yAxisShifter++){
+                ctx.clearRect(xAxisDepth*pixelValue,yAxisShifter*pixelValue,width,height);
+                lock[xAxisDepth][yAxisShifter] = '';
+            }
+        }
+    }
+
+
+    /**
+     * Horizontal Matching
+     */
     if (a2 !== '' && a1 === a2) {
         if (a1 === a3) { //last emoji leftmost
 
@@ -71,7 +93,7 @@ function matchPuzzle() {
             }
 
         }
-        else if (a1 === a2) { //last emoji in middle
+        else if (a1 === a2) { //last emoji in middle (No Use)
 
             console.log("match found2.1", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
 
@@ -85,6 +107,7 @@ function matchPuzzle() {
 
         }
     }
+
 }
 
 function emojiShifting(xAxisShifter,yAxisShifter){
