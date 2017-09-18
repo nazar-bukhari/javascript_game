@@ -59,7 +59,6 @@ function matchPuzzle() {
             // console.log(x, " ", y);
             // console.log("match found1 ", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
             score++;
-            console.log('score: ',score);
             document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {
@@ -77,7 +76,6 @@ function matchPuzzle() {
             // console.log(x, " ", y);
             // console.log("match found1.1", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
             score++;
-            console.log('score: ',score);
             document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {
@@ -95,7 +93,6 @@ function matchPuzzle() {
 
             // console.log("match found2", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
             score++;
-            console.log('score: ',score);
             document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {
@@ -111,7 +108,6 @@ function matchPuzzle() {
 
             // console.log("match found2.1", xAxisDepth, " ", yAxisDepth, " ", width, " ", height);
             score++;
-            console.log('score: ',score);
             document.getElementById('gameScore').innerHTML = score.toString() ;
 
             for (let yAxisShifter = yAxisDepth; yAxisShifter > 0; yAxisShifter--) {

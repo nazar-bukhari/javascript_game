@@ -5,14 +5,15 @@
 /*}*/
 
 #gameCanvas{
+
     background-color: darkgrey;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    height: 630px;
-    width: 896px;
-    display: block;
+    /*padding-left: 0;*/
+    /*padding-right: 0;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*height: 630px;*/
+    /*width: 896px;*/
+    /*display: block;*/
     /*max-height: 2000px;*/
 }
 
