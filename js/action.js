@@ -124,7 +124,7 @@ function leftArrowPressed() {
         if (isLocked === '') {
 
             ctx.clearRect(x, y, width, height);
-            x -= 128;
+            x -= width;
             ctx.beginPath();
             ctx.drawImage(element, x, y, width, height);
             ctx.closePath();
@@ -145,7 +145,7 @@ function rightArrowPressed() {
         if (isLocked === '') {
 
             ctx.clearRect(x, y, width, height);
-            x += 128;
+            x += width;
             ctx.beginPath();
             ctx.drawImage(element, x, y, width, height);
             ctx.closePath();

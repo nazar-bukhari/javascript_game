@@ -42,7 +42,7 @@ function matchPuzzle() {
             score++;
             document.getElementById('gameScore').innerHTML = score.toString() ;
 
-            for(let yAxisShifter = yAxisDepth; yAxisShifter < maxYAxisDepth; yAxisShifter++){
+            for(let yAxisShifter = yAxisDepth; yAxisShifter < (yAxisDepth+3); yAxisShifter++){
                 ctx.clearRect(xAxisDepth*pixelValue,yAxisShifter*pixelValue,width,height);
                 lock[xAxisDepth][yAxisShifter] = '';
             }
