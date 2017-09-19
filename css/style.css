@@ -1,27 +1,5 @@
-/*.emoji-img{*/
-    /*position: absolute;*/
-    /*left: 384px;*/
-    /*top: 5px;*/
-/*}*/
-
 #gameCanvas{
 
     background-color: darkgrey;
     margin-top: 75px;
-    /*padding-left: 0;*/
-    /*padding-right: 0;*/
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*height: 630px;*/
-    /*width: 896px;*/
-    /*display: block;*/
-    /*max-height: 2000px;*/
 }
-
-/*#mydiv{*/
-    /*background-color: #4cae4c;*/
-    /*!*left: 500px;*!*/
-    /*!*top: 100px;*!*/
-    /*height: 128px;*/
-    /*width: 128px;*/
-/*}*/

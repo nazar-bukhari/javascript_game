@@ -76,7 +76,6 @@ function timer() {
         yAxisDepth = lockCurrentGrid ? (yAxisDepth - 1) : yAxisDepth;
         lock [xAxisDepth][yAxisDepth] = element.src;
 
-        //Matching Logic
         matchPuzzle();
 
         isTouchedBottom = false;

@@ -10,12 +10,12 @@ function matchPuzzle() {
     let a2, a3, a4, a5,h1,h2,h3;
     let a1 = lock [xAxisDepth][yAxisDepth];
 
-    if (xAxisDepth < maxXAxisDepth - 2) { //5 = width-2
+    if (xAxisDepth < maxXAxisDepth - 2) {
 
         a2 = lock [xAxisDepth + 1][yAxisDepth];
         a3 = lock [xAxisDepth + 2][yAxisDepth];
     }
-    else if (xAxisDepth < maxXAxisDepth - 1) { //6 = width-1
+    else if (xAxisDepth < maxXAxisDepth - 1) {
         a2 = lock [xAxisDepth + 1][yAxisDepth];
     }
 
